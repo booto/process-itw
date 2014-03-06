@@ -218,7 +218,6 @@ int huffman_decode(uint8_t *input, size_t input_length, uint8_t **output, size_t
   uint8_t current_byte;
 
   size_t current_node = root;
-  size_t high_total = 0;
 
   while (bits_processed < bits_to_process) {
     if (bits_in_current_byte == 0) {
@@ -237,9 +236,6 @@ int huffman_decode(uint8_t *input, size_t input_length, uint8_t **output, size_t
     current_byte >>= 1;
 
     if (nodes[current_node].is_leaf) {
-      if (nodes[current_node].value < 0x10) {
-        high_total++;
-      }
       out_buffer[out_buffer_used] = nodes[current_node].value;
       out_buffer_used++;
       if (out_buffer_used == out_buffer_capacity) {
